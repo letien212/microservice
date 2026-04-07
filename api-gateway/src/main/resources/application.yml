@@ -1,0 +1,43 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        web flux:
+          routes:
+            # mall Service Rout
+            - id: user-manager
+              uri: lb://user-manager
+              predicates:
+                - Path=/user-manager/**
+              filters:
+                - RewritePath=/user-manager/(?<segment>.*), /$\{segment}
+
+
+            - id: mall-service
+              uri: lb://mall-service
+              predicates:
+                - Path=/mall/**
+              filters:
+                - RewritePath=/mall/(?<segment>.*), /$\{segment}
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+
+

@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: mall-service
+
+#cấu hình để hỏi lại user-manager là nơi cấp phát access-token: để xem token đấy có hợp lệ k
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: http://localhost:8081
+
+  config:
+    #Imports configuration data from a config server when available
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL:http://localhost:6969}
+      #      1
+      request-connect-timeout: 5000
+      #      2
+      request-read-timeout: 5000
+      #      3
+      fail-fast: true
+      retry:
+        #        4
+        max-attempts: 10
+        #        5
+        initial-interval: 1000
+        #        6
+        max-interval: 2000
+        #        7
+        multiplier: 1.1
+        #1 Timeout on waiting to connect to the config server (ms)
+        #2 Timeout on waiting to read configuration data from the config server (ms)
+        #3 Makes a failure to connect to the config server fatal
+        #4 Maximum number of attempts
+      #5 Initial retry interval for backoff (ms)
+      #6 Maximum retry interval for backoff (ms)
+      #7 Multiplier to compute the next interval
+
+server:
+  port: 8085
+
+#cấu hình eureka client
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+
+#cấu hình api-docs
+api-docs:
+  server: http://localhost:8085
+  oauth2:
+    authorization-url: http://localhost:8081/oauth2/authorize
+    token-url: http://localhost:8081/oauth2/token
+
+#cho phép swagger nhận id và secret từ base auth
+springdoc:
+  swagger-ui:
+    oauth:
+      use-basic-authentication-with-access-code-grant: true
+
+#bật log
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

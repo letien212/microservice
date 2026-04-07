@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: user-manager
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8762/eureka
+    fetch-registry: true
