@@ -12,12 +12,8 @@ import vmall.mall_service.dto.request.CreateProductRequest;
 @RequestMapping(value = "/api/v1/products")
 public class ProductsController {
 
-    @Value("jwt.key")
-    private String tokenKey;
-
-
     @PostMapping
     public ResponseEntity<String> createProduct(@RequestBody CreateProductRequest request){
-        return ResponseEntity.ok(tokenKey);
+        return ResponseEntity.ok("Hello");
     }
 }
