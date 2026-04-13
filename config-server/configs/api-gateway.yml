@@ -10,8 +10,8 @@ spring:
               filters:
                 - RewritePath=/user-manager/(?<segment>.*), /$\{segment}
 
-            - id: mall-service
-              uri: lb://mall-service
+            - id: mall-service.yml
+              uri: lb://mall-service.yml
               predicates:
                 - Path=/mall/**
               filters:

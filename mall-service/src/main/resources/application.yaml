@@ -5,7 +5,7 @@ spring:
 #cấu hình để hỏi lại user-manager là nơi cấp phát access-token: để xem token đấy có hợp lệ k
   security:
     oauth2:
-      resource server:
+      resource-server:
         jwt:
           issuer-uri: http://localhost:8001
   config:
