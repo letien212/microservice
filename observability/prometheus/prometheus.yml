@@ -1,0 +1,36 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Config Server
+  - job_name: 'config-server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['config-server:6969']
+        labels:
+          application: 'config-server'
+
+  # Discovery Service
+  - job_name: 'discovery-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['discovery-service:8762']
+        labels:
+          application: 'discovery-service'
+
+  # User Manager
+  - job_name: 'user-manager'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['user-manager:8001']
+        labels:
+          application: 'user-manager'
+
+  # Mall Service
+  - job_name: 'mall-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['mall-service:8002']
+        labels:
+          application: 'mall-service'

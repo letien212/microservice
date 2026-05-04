@@ -39,3 +39,5 @@ temp/
 
 # Coverage
 coverage/
+
+*.code-workspace
